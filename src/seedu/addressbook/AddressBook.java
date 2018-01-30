@@ -213,11 +213,11 @@ public class AddressBook {
      */
 
     private static void showWelcomeMessage() {
-        showToUser(DIVIDER, DIVIDER, VERSION, MESSAGE_WELCOME, DIVIDER);
+        showToUser(new String[]{DIVIDER, DIVIDER, VERSION, MESSAGE_WELCOME, DIVIDER});
     }
 
     private static void showResultToUser(String result) {
-        showToUser(result, DIVIDER);
+        showToUser(new String[]{result, DIVIDER});
     }
 
     /*
@@ -277,7 +277,7 @@ public class AddressBook {
      * Displays the goodbye message and exits the runtime.
      */
     private static void exitProgram() {
-        showToUser(MESSAGE_GOODBYE, DIVIDER, DIVIDER);
+        showToUser(new String[]{MESSAGE_GOODBYE, DIVIDER, DIVIDER});
         System.exit(0);
     }
 
@@ -530,7 +530,10 @@ public class AddressBook {
      * @return whether it is valid
      */
     private static boolean isDisplayIndexValidForLastPersonListingView(int index) {
-        return index >= DISPLAYED_INDEX_OFFSET && index < latestPersonListingView.size() + DISPLAYED_INDEX_OFFSET;
+        boolean isMoreThanOffset = index >= DISPLAYED_INDEX_OFFSET;
+        boolean isLessThanLimit = index < latestPersonListingView.size() + DISPLAYED_INDEX_OFFSET;
+
+        return  isMoreThanOffset && isLessThanLimit;
     }
 
     /**
@@ -561,7 +564,7 @@ public class AddressBook {
      */
     private static String executeListAllPersonsInAddressBook() {
         ArrayList<HashMap<PersonProperty,String>> toBeDisplayed = getAllPersonsInAddressBook();
-        showToUser(toBeDisplayed);
+        showToUser(toBeDisplayed); //HERE SLAP
         return getMessageForPersonsDisplayedSummary(toBeDisplayed);
     }
 
@@ -604,11 +607,18 @@ public class AddressBook {
     /**
      * Shows a message to the user
      */
-    private static void showToUser(String... message) {
+    private static void showToUser(String message) {
+        System.out.println(LINE_PREFIX + message);
+    }
+    /**
+     * Shows a message to the user
+     */
+    private static void showToUser(String[] message) {
         for (String m : message) {
             System.out.println(LINE_PREFIX + m);
         }
     }
+
 
     /**
      * Shows the list of persons to the user.
@@ -692,7 +702,7 @@ public class AddressBook {
      */
     private static void createFileIfMissing(String filePath) {
         final File storageFile = new File(filePath);
-        if (storageFile.exists()) {
+        if (storageFile.exists()) { //HERE Happy path
             return;
         }
 
