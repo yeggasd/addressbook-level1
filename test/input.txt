@@ -40,6 +40,10 @@
   list
   add Esther Potato p/555555 e/esther@notreal.potato
   list
+  add Aaron Dino p/123112 e/AaronDINO@dinosaur.com
+  list
+  sort
+  list
 
 ##########################################################
 # test find persons command
