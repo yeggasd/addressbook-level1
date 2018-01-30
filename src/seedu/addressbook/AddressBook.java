@@ -1157,6 +1157,7 @@ public class AddressBook {
      * @return split by whitespace
      */
     private static ArrayList<String> splitByWhitespace(String toSplit) {
+        toSplit = toSplit.toUpperCase();
         return new ArrayList<>(Arrays.asList(toSplit.trim().split("\\s+")));
     }
 
